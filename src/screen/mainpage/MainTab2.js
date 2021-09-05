@@ -18,7 +18,7 @@ import styles from './styles';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {DrawerActions} from '@react-navigation/native';
 import Entypo from 'react-native-vector-icons/Entypo';
-import { NetworkInfo } from "react-native-network-info";
+// import { NetworkInfo } from "react-native-network-info";
 import DeviceInfo from 'react-native-device-info';
 
 export default function MainTab2(props) {
@@ -27,19 +27,17 @@ export default function MainTab2(props) {
   const month = (today.getMonth() + 1).toLocaleString();
   const day = today.getDay();
   let days = ['일', '월', '화', '수', '목', '금', '토'];
-  let ip4="";
-  NetworkInfo.getIPV4Address().then(ipv4Address => {
-    ip4=ipv4Address;
-  });
-  let apiaddress ="";
-  if (DeviceInfo.isEmulator()){
-    apiaddress="http://"+"localhost"+":8080/invitation";
-  }
-  else{
-    apiaddress="http://"+"192.168.12.94"+":8080/invitation";
+  // let ip4="";
+  // NetworkInfo.getIPV4Address().then(ipv4Address => {
+  //   ip4=ipv4Address;
+  // });
+  let apiaddress = '';
+  if (DeviceInfo.isEmulator()) {
+    apiaddress = 'http://' + 'localhost' + ':8080/invitation';
+  } else {
+    apiaddress = 'http://' + '192.168.12.94' + ':8080/invitation';
   }
 
-        
   return (
     <>
       <View style={styles.mainScreen1ContentView}>
