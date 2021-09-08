@@ -25,6 +25,7 @@ import AppContext from '../../context/AppContext';
 import Postcode from '@actbase/react-daum-postcode';
 // import {NetworkInfo} from 'react-native-network-info';
 // import DeviceInfo from 'react-native-device-info';
+import MainTab1 from '../mainpage/MainTab1';
 
 export default function CreateMeetScreen({navigation}) {
   const [meetName, setMeetName] = useState('');

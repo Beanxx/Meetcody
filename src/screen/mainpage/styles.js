@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
-import { StyleSheet, Dimensions, StatusBar } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import {StyleSheet, Dimensions, StatusBar} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -19,10 +19,12 @@ export default StyleSheet.create({
     alignItems: 'center',
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
+
   container: {
     flex: 1,
     justifyContent: 'center',
   },
+
   menu: {
     ...absoluteStretch,
   },
@@ -65,92 +67,97 @@ export default StyleSheet.create({
       width: 0,
       height: 2,
     },
-    elevation:2
+    elevation: 2,
   },
   mainMessageText: {
     textAlignVertical: 'center',
     fontSize: 13,
     color: '#fff',
   },
-  mainCustomMeet: Platform.OS === "android" ? {
-    borderWidth: 1,
-    borderRadius: 5,
-    width: 80,
-    height: 95,
-    marginLeft: 15,
-    alignItems: 'center',
-    alignContent: 'center',
-    justifyContent: 'center',
-    borderColor: 'white',
-    backgroundColor: 'white',
-    shadowColor: '#000000',
+  mainCustomMeet:
+    Platform.OS === 'android'
+      ? {
+          borderWidth: 1,
+          borderRadius: 5,
+          width: 80,
+          height: 95,
+          marginLeft: 15,
+          alignItems: 'center',
+          alignContent: 'center',
+          justifyContent: 'center',
+          borderColor: 'white',
+          backgroundColor: 'white',
+          shadowColor: '#000000',
 
-    shadowOpacity: 1,
-    shadowRadius: 5,
-    shadowOffset: {
-      width: 5,
-      height: 5,
-    },
-    elevation: 5,
-  } : {
-    borderWidth: 1,
-    borderRadius: 5,
-    width: 80,
-    height: 95,
-    marginLeft: 15,
-    alignItems: 'center',
-    alignContent: 'center',
-    justifyContent: 'center',
-    borderColor: 'white',
-    backgroundColor: 'white',
-    shadowColor: '#000000',
-    shadowOpacity: 0.25,
-    shadowRadius: 3.5,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-  },
+          shadowOpacity: 1,
+          shadowRadius: 5,
+          shadowOffset: {
+            width: 5,
+            height: 5,
+          },
+          elevation: 5,
+        }
+      : {
+          borderWidth: 1,
+          borderRadius: 5,
+          width: 80,
+          height: 95,
+          marginLeft: 15,
+          alignItems: 'center',
+          alignContent: 'center',
+          justifyContent: 'center',
+          borderColor: 'white',
+          backgroundColor: 'white',
+          shadowColor: '#000000',
+          shadowOpacity: 0.25,
+          shadowRadius: 3.5,
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+        },
 
   mainCustomMeetText: {
     shadowColor: '#fff',
     lineHeight: 20,
   },
-  mainNeedConfirmMeetTouch: Platform.OS === "android" ? {
-    width: screenWidth - 25,
-    height: 140,
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingTop: 10,
-    marginTop: 10,
-    borderColor: 'white',
-    backgroundColor: 'white',
-    shadowColor: '#000000',
-    shadowOpacity: 1,
-    shadowRadius: 5,
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    elevation: 5,
-  } : {
-    width: screenWidth - 25,
-    height: 140,
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingTop: 10,
-    marginTop: 10,
-    borderColor: 'white',
-    backgroundColor: 'white',
-    shadowColor: '#000000',
-    shadowOpacity: 0.25,
-    shadowRadius: 3.5,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-  },
-
+  mainNeedConfirmMeetTouch:
+    Platform.OS === 'android'
+      ? {
+          width: screenWidth - 25,
+          height: 140,
+          borderWidth: 1,
+          borderRadius: 5,
+          paddingTop: 10,
+          marginTop: 10,
+          borderColor: 'white',
+          backgroundColor: 'white',
+          shadowColor: '#000000',
+          shadowOpacity: 1,
+          shadowRadius: 5,
+          shadowOffset: {
+            width: 0,
+            height: 5,
+          },
+          elevation: 5,
+        }
+      : {
+          width: screenWidth - 25,
+          height: 140,
+          borderWidth: 1,
+          borderRadius: 5,
+          paddingTop: 10,
+          marginTop: 10,
+          borderColor: 'white',
+          backgroundColor: 'white',
+          shadowColor: '#000000',
+          shadowOpacity: 0.25,
+          shadowRadius: 3.5,
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+        },
 
   mainNeedConfirmMeetHead: {
     fontSize: 16,
@@ -208,38 +215,147 @@ export default StyleSheet.create({
     marginRight: 30,
   },
 
-  mainCalendar: Platform.OS === "android" ? {
-    borderWidth: 1,
-    borderRadius: 5,
-    width: 300,
-    height: 100,
-    marginLeft: 15,
-    justifyContent: 'center',
+  mainCalendar:
+    Platform.OS === 'android'
+      ? {
+          borderWidth: 1,
+          borderRadius: 5,
+          width: 300,
+          height: 100,
+          marginLeft: 15,
+          justifyContent: 'center',
+          borderColor: 'white',
+          backgroundColor: 'white',
+          shadowColor: '#000000',
+          shadowOpacity: 1,
+          shadowRadius: 5,
+          shadowOffset: {
+            width: 5,
+            height: 5,
+          },
+          elevation: 5,
+        }
+      : {
+          borderWidth: 1,
+          borderRadius: 5,
+          width: 300,
+          height: 100,
+          marginLeft: 15,
+          justifyContent: 'center',
+          borderColor: 'white',
+          backgroundColor: 'white',
+          shadowColor: '#000000',
+          shadowOpacity: 0.25,
+          shadowRadius: 3.5,
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+        },
+
+  // 하단 취소, 저장 버튼 스타일
+  bottomButton: {
+    alignItems: 'center',
+    padding: 10,
+    width: '49%',
+    borderWidth: 2,
+    borderRadius: 10,
     borderColor: 'white',
     backgroundColor: 'white',
     shadowColor: '#000000',
-    shadowOpacity: 1,
-    shadowRadius: 5,
-    shadowOffset: {
-      width: 5,
-      height: 5,
-    },
-    elevation: 5,
-  } : {
-    borderWidth: 1,
-    borderRadius: 5,
-    width: 300,
-    height: 100,
-    marginLeft: 15,
-    justifyContent: 'center',
-    borderColor: 'white',
-    backgroundColor: 'white',
-    shadowColor: '#000000',
-    shadowOpacity: 0.25,
-    shadowRadius: 3.5,
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 3,
     },
+    elevation: 3,
+  },
+
+  // 하단 취소, 저장 버튼 위치 고정
+  fixToText: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginLeft: 20,
+    marginRight: 20,
+    marginBottom: 10,
+  },
+
+  // 일정 상세 페이지 스타일
+  detailSafeViewArea: {
+    flex: 1,
+
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+  },
+
+  detailContents: {
+    flex: 0.4,
+    margin: 20,
+    borderWidth: 2,
+    borderRadius: 10,
+    borderColor: 'white',
+    paddingTop: 10,
+    backgroundColor: 'white',
+    shadowColor: '#000000',
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    elevation: 3,
+  },
+
+  detailHeadText: {
+    fontSize: 16,
+    marginTop: 10,
+    marginLeft: 20,
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+
+  detailText: {
+    fontSize: 15,
+    marginTop: 10,
+    marginLeft: 5,
+    textAlign: 'center',
+  },
+
+  pickContents: {
+    flex: 0.6,
+    margin: 20,
+    borderWidth: 2,
+    borderRadius: 10,
+    borderColor: 'white',
+    padding: 20,
+    backgroundColor: 'white',
+    shadowColor: '#000000',
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    elevation: 3,
+  },
+
+  detailTitleText: {
+    textAlign: 'center',
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#8C8C8C',
+  },
+
+  detailPick: {
+    textAlign: 'center',
+    marginTop: 20,
+    fontWeight: 'bold',
+    fontSize: 17,
+  },
+
+  pickView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignContent: 'center',
   },
 });

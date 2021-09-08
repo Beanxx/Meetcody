@@ -21,19 +21,19 @@ import AppContext from '../../context/AppContext';
 // import DeviceInfo from 'react-native-device-info';
 
 function useForceUpdate() {
-  const [value, setValue] = React.useState(0); // integer state
+  const [value, setValue] = useState(0); // integer state
   return () => setValue(value => value + 1); // update the state to force render
 }
 
 export default function InviteFriendScreen({navigation}) {
   const androidBool = Platform.OS === 'android' ? true : false;
-  const [contactList, setContactList] = React.useState([]);
-  const [contactNAMEList, setContactNAMEList] = React.useState([]);
-  const [emailSet, setEmail] = React.useState('');
-  const [DATA, setDATA] = React.useState([]);
-  const [isPress, setIsPress] = React.useState([]);
-  const [selectedFriend, setSelectedFriend] = React.useState([]);
-  const [extractedFriend, setExtractedFriend] = React.useState([]);
+  const [contactList, setContactList] = useState([]);
+  const [contactNAMEList, setContactNAMEList] = useState([]);
+  const [emailSet, setEmail] = useState('');
+  const [DATA, setDATA] = useState([]);
+  const [isPress, setIsPress] = useState([]);
+  const [selectedFriend, setSelectedFriend] = useState([]);
+  const [extractedFriend, setExtractedFriend] = useState([]);
   const myContext = useContext(AppContext);
 
   const forceUpdate = useForceUpdate();
@@ -158,42 +158,42 @@ export default function InviteFriendScreen({navigation}) {
   // );
 
   const goNext = () => {
-      AsyncStorage.setItem(
-        'selectedFriendList',
-        JSON.stringify(selectedFriend),
-      ).then(() =>
-        AsyncStorage.getItem('selectedFriendList').then(result =>
+    AsyncStorage.setItem(
+      'selectedFriendList',
+      JSON.stringify(selectedFriend),
+    ).then(() =>
+      AsyncStorage.getItem('selectedFriendList').then(result =>
+        console.log(result),
+      ),
+    );
+    AsyncStorage.setItem('selectedPressed', JSON.stringify(isPress)).then(() =>
+      AsyncStorage.getItem('selectedPressed').then(result =>
+        console.log(result),
+      ),
+    );
+    var names = [];
+    var nums = [];
+    isPress.map((isSelected, index) => {
+      if (isSelected) {
+        names.push(contactNAMEList[index]);
+        nums.push(contactList[index]);
+      }
+    });
+    console.log('asdf', names, nums);
+    AsyncStorage.removeItem('selectedFriendsName');
+    AsyncStorage.removeItem('selectedFriendsNum');
+    AsyncStorage.setItem('selectedFriendsName', JSON.stringify(names)).then(
+      () =>
+        AsyncStorage.getItem('selectedFriendsName').then(result =>
           console.log(result),
         ),
-      );
-      AsyncStorage.setItem('selectedPressed', JSON.stringify(isPress)).then(() =>
-        AsyncStorage.getItem('selectedPressed').then(result =>
-          console.log(result),
-        ),
-      );
-      var names = [];
-      var nums = [];
-      isPress.map((isSelected, index) => {
-        if (isSelected) {
-          names.push(contactNAMEList[index]);
-          nums.push(contactList[index]);
-        }
-      });
-      console.log('asdf', names, nums);
-      AsyncStorage.removeItem('selectedFriendsName');
-      AsyncStorage.removeItem('selectedFriendsNum');
-      AsyncStorage.setItem('selectedFriendsName', JSON.stringify(names)).then(
-        () =>
-          AsyncStorage.getItem('selectedFriendsName').then(result =>
-            console.log(result),
-          ),
-      );
-      AsyncStorage.setItem('selectedFriendsNum', JSON.stringify(nums)).then(() =>
-        AsyncStorage.getItem('selectedFriendsNum').then(result =>
-          console.log(result),
-        ),
-      );
-      navigation.navigate('CreateMeet');
+    );
+    AsyncStorage.setItem('selectedFriendsNum', JSON.stringify(nums)).then(() =>
+      AsyncStorage.getItem('selectedFriendsNum').then(result =>
+        console.log(result),
+      ),
+    );
+    navigation.navigate('CreateMeet');
   };
 
   const selectFriend = index => {

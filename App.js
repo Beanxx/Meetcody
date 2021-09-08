@@ -18,8 +18,8 @@ import InviteAcceptScreen from './src/screen/inviteacceptpage/InviteAcceptScreen
 import MainActionBar from './src/screen/mainpage/MainActionBar';
 
 export default function App() {
-  // 구글 로그인 완료 -> isSignIn = true 
-  // -> 연락처 입력 완료 -> isContact = true 
+  // 구글 로그인 완료 -> isSignIn = true
+  // -> 연락처 입력 완료 -> isContact = true
   // -> 메인 화면
   const [isLoading, setIsLoading] = useState();
   const [userInfo, setUserInfo] = useState(false);
@@ -46,7 +46,7 @@ export default function App() {
             //  평범하게 스크린 사용하기
             ...commonScreens,
             // 조건부 스크린 사용하기
-            ...(isSignIn? userScreens : authScreens),
+            ...(isSignIn ? userScreens : authScreens),
           }).map(([name, component]) => (
             <RootStack.Screen
               name={name}
@@ -78,7 +78,6 @@ const userScreens = {
   DetailScreen: DetailScreen,
   InviteFriend: InviteFriendScreen,
   InviteAcceptScreen: InviteAcceptScreen,
-  
 };
 
 const RootStack = createStackNavigator();

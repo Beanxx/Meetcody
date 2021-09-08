@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useContext} from 'react';
+import {useContext, useState} from 'react';
 import AppContext from '../../context/AppContext';
 import {
   View,
@@ -26,7 +26,8 @@ export default function MainTab1(props) {
   const [userid, setUserid] = React.useState('');
   const navigation = () => props.navigation.navigate('InviteFriend');
   const navigation2 = () => props.navigation.navigate('DetailScreen');
-  const [meetList, setMeetList] = React.useState([]);
+  const navigation3 = () => props.navigation.navigate('CreateMeet');
+  const [meetList, setMeetList] = useState([]);
 
   // AsyncStorage.getItem('userid').then(result => {
   //   if (result !== null) {
@@ -104,25 +105,30 @@ export default function MainTab1(props) {
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             style={{flexDirection: 'row'}}>
-            <TouchableOpacity activeOpacity={1} style={styles.mainCustomMeet}>
+            <TouchableOpacity
+              activeOpacity={1}
+              style={styles.mainCustomMeet}
+              onPress={() => {
+                navigation3();
+              }}>
               <Text style={styles.mainCustomMeetText}>
-                비즈니스{'\n'}1시간{'\n'}online
+                아침{'\n'}1시간{'\n'}online
               </Text>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={1} style={styles.mainCustomMeet}>
               <Text style={styles.mainCustomMeetText}>
-                친구들과{'\n'}2시간{'\n'}offline
+                저녁{'\n'}2시간{'\n'}장소추천 O
               </Text>
             </TouchableOpacity>
 
             <TouchableOpacity activeOpacity={1} style={styles.mainCustomMeet}>
               <Text style={styles.mainCustomMeetText}>
-                비즈니스{'\n'}1시간{'\n'}online
+                새벽{'\n'}4시간{'\n'}장소추천 X
               </Text>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={2} style={styles.mainCustomMeet}>
               <Text style={styles.mainCustomMeetText}>
-                비즈니스{'\n'}1시간{'\n'}online
+                점심{'\n'}1시간{'\n'}online
               </Text>
             </TouchableOpacity>
           </ScrollView>
