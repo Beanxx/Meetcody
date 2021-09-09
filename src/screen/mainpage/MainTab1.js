@@ -21,6 +21,7 @@ import {DrawerActions} from '@react-navigation/native';
 import Entypo from 'react-native-vector-icons/Entypo';
 // import {NetworkInfo} from 'react-native-network-info';
 // import DeviceInfo from 'react-native-device-info';
+import {Button} from 'react-native-paper';
 
 export default function MainTab1(props) {
   const [userid, setUserid] = React.useState('');
@@ -150,7 +151,8 @@ export default function MainTab1(props) {
               <View style={{flexDirection: 'row', height: 18, width: '100%'}}>
                 <View>
                   <Text style={[styles.mainNeedConfirmMeetHead]}>
-                    졸업 프로젝트................
+                    졸업 프로젝트
+                    <Text style={{color: 'red'}}>{'      '}수락⭕</Text>
                   </Text>
                 </View>
                 <View>

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useContext} from 'react';
 import AppContext from '../../context/AppContext';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {View, Text, Image, TouchableOpacity, Dimensions} from 'react-native';
 import styles from './styles';
 import Postcode from '@actbase/react-daum-postcode';
 import {useState} from 'react';
@@ -9,6 +9,10 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { NetworkInfo } from "react-native-network-info";
 import DeviceInfo from 'react-native-device-info';
+import GOOGLE_CONFIG from '../loginpage/google-config';
+import Entypo from 'react-native-vector-icons/Entypo';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 // TODO("리덕스로 상태관리")
 // TODO("네비게이션 구조 전체적으로 다시 봐야함...")
@@ -17,6 +21,7 @@ import DeviceInfo from 'react-native-device-info';
 
 export default function InviteAcceptScreen({navigation}) {
   const myContext = useContext(AppContext);
+  const screenWidth = Dimensions.get('window').width;
 
   AsyncStorage.getItem('email').then(result => {
     if (result !== null) {
@@ -40,6 +45,9 @@ export default function InviteAcceptScreen({navigation}) {
   const [postcode, setPostcode] = useState(null);
   const [addr, setAddr] = useState('');
   const [extraAddr, setExtraAddr] = useState('');
+  const [nometter, setNometter] = useState(false);
+  const [userid, setUserid] = useState('');
+  const [mycalenderEmail, setMyCalenderEmail] = useState('');
 
   const sendStartLoctoServer = () => {
     navigation.goBack();
@@ -78,8 +86,30 @@ export default function InviteAcceptScreen({navigation}) {
   //         console.log(error);
   //       });
   //   };
+
   return (
     <View style={styles.header}>
+      <View style={{width: screenWidth, height: 50, flexDirection: 'row'}}>
+        <View style={{width: '20%', height: 50}}>
+          <TouchableOpacity
+            style={{height: 50}}
+            onPress={() => navigation.goBack()}>
+            <AntDesign
+              name="arrowleft"
+              size={30}
+              style={{paddingTop: 10, paddingLeft: 30}}
+            />
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            width: '60%',
+            justifyContent: 'center',
+            flexDirection: 'row',
+          }}></View>
+        <View style={{width: '20%', height: 50}}></View>
+      </View>
+
       {isModal ? (
         <View style={styles.jusoView}>
           {/* <Text>자택주소 수정하기</Text> */}
@@ -131,23 +161,31 @@ export default function InviteAcceptScreen({navigation}) {
             style={styles.logo}
           />
 
-          <Text style={styles.title}>{invitorName}님의 </Text>
+          <Text style={styles.title}>
+            <Text style={{color: '#5586EB'}}>{invitorName}</Text>님의
+          </Text>
           <Text style={styles.title}>{scheduleName}</Text>
           <Text style={styles.title}>일정에 초대되셨어요!</Text>
 
-          <Text style={styles.scheduleInfoText}>기간 : {scheduleDate}</Text>
+          <Text style={styles.scheduleInfoText}>- 기간 : {scheduleDate}</Text>
           <Text style={styles.scheduleInfoText2}>
-            소요시간 : {scheduleDuration}
+            - 소요시간 : {scheduleDuration}
           </Text>
           <Text style={styles.scheduleInfoText2}>
-            모임목적 : {schedulePurpose}
+            - 모임목적 : {schedulePurpose}
           </Text>
 
           {didGetJuso ? (
             <View>
               <TouchableOpacity style={styles.button3} disabled={true}>
-                <Text style={styles.buttonTextNoBox2}>나의 출발 장소</Text>
-                <Text style={styles.buttonTextNoBox}>{addr}</Text>
+                <Text style={styles.buttonTextNoBox2}>🏃‍♀️ 나의 출발 장소:</Text>
+                <Text style={styles.buttonTextNoBoxNotButton}>{addr}</Text>
+                <Text style={styles.buttonTextNoBox2}>
+                  📧 연동될 캘린더 이메일:
+                </Text>
+                <Text style={styles.buttonTextNoBoxNotButton}>
+                  {mycalenderEmail}
+                </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.button2}
@@ -157,12 +195,50 @@ export default function InviteAcceptScreen({navigation}) {
                 <Text style={styles.buttonTextNoBox}>출발 장소 다시 입력</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={styles.button}
+                style={styles.button2}
                 onPress={() => {
-                  sendStartLoctoServer();
+                  setNometter(true);
+                  setGetJuso(false);
                 }}>
-                <Text style={styles.buttonText}>초대 수락하기</Text>
+                <Text style={styles.buttonTextNoBox}>
+                  출발 장소는 상관없어요!
+                </Text>
               </TouchableOpacity>
+
+              {mycalenderEmail == '' ? (
+                <View>
+                  <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => {
+                      signIn();
+                    }}>
+                    <Text style={styles.buttonText}>
+                      캘린더 구글 계정 선택하기
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              ) : (
+                <View>
+                  <TouchableOpacity
+                    style={styles.button2}
+                    onPress={() => {
+                      signIn();
+                    }}>
+                    <Text style={styles.buttonTextNoBox}>
+                      캘린더 계정 다시 선택하기
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.button2}
+                    onPress={() => {
+                      sendStartLoctoServer();
+                    }}>
+                    <Text style={styles.buttonTextNoBox}>
+                      출발장소 확정하기
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              )}
             </View>
           ) : (
             <View>
@@ -174,20 +250,66 @@ export default function InviteAcceptScreen({navigation}) {
                 <Text style={styles.buttonText}>어디에서 출발하시나요?</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity
-                style={styles.button2}
-                onPress={() => {
-                  navigation.goBack();
-                }}>
-                <Text style={styles.buttonTextNoBox}>상관없어요!</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.button2}
-                onPress={() => {
-                  test();
-                }}>
-                <Text style={styles.buttonTextNoBox}>상관없어요!</Text>
-              </TouchableOpacity>
+              {nometter ? (
+                <>
+                  <TouchableOpacity
+                    style={styles.button2}
+                    onPress={() => {
+                      setNometter(false);
+                      setGetJuso(false);
+                    }}>
+                    <Text style={styles.buttonTextNoBox}>
+                      출발 장소는 상관없어요!
+                    </Text>
+                  </TouchableOpacity>
+                  {mycalenderEmail == '' ? (
+                    <View>
+                      <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => {
+                          signIn();
+                        }}>
+                        <Text style={styles.buttonText}>
+                          캘린더 구글 계정 선택하기
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  ) : (
+                    <View>
+                      <TouchableOpacity
+                        style={styles.button2}
+                        onPress={() => {
+                          signIn();
+                        }}>
+                        <Text style={styles.buttonTextNoBox}>
+                          캘린더 계정 다시 선택하기
+                        </Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={styles.button2}
+                        onPress={() => {
+                          sendStartLoctoServer();
+                        }}>
+                        <Text style={styles.buttonTextNoBox}>
+                          출발장소 확정하기
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  )}
+                </>
+              ) : (
+                <>
+                  <TouchableOpacity
+                    style={styles.button2}
+                    onPress={() => {
+                      setNometter(true);
+                    }}>
+                    <Text style={styles.buttonTextNoBox}>
+                      출발 장소는 상관없어요!
+                    </Text>
+                  </TouchableOpacity>
+                </>
+              )}
             </View>
           )}
         </View>

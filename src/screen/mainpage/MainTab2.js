@@ -44,7 +44,7 @@ export default function MainTab2(props) {
     <>
       <View style={styles.mainScreen1ContentView}>
         <Text style={styles.mainScreenHeadline} allowFontScaling={false}>
-          확정된 일정 조회
+          확정된
         </Text>
 
         <Agenda

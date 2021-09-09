@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useContext, useState} from 'react';
+import {useContext, useState, useRef, useEffect} from 'react';
 import {
   View,
   Text,
@@ -14,11 +14,8 @@ import styles from '../mainpage/styles';
 import MainActionBar from '../mainpage/MainActionBar';
 // import DeviceInfo from 'react-native-device-info';
 import AppContext from '../../context/AppContext';
-import RadioForm, {
-  RadioButton,
-  RadioButtonInput,
-  RadioButtonLabel,
-} from 'react-native-simple-radio-button';
+import RadioForm from 'react-native-simple-radio-button';
+// import CountdownTimer from 'react-deadline';
 
 export default function DetailScreen({route, navigation}) {
   // const myContext = useContext(AppContext);
@@ -49,6 +46,43 @@ export default function DetailScreen({route, navigation}) {
     {label: 'param5', value: 9},
   ];
 
+  // const padNumber = (num, length) => {
+  //   return String(num).padStart(length, '0');
+  // };
+
+  // 아무것도 입력하지 않으면 undefined가 들어오기 때문에 유효성 검사부터..
+  // const tempDay = 0;
+  // const tempHour = 0;
+  // const tempMin = 0;
+  // const deadline = 0;
+  // // 타이머를 초단위로 변환한 initialTime과 setInterval을 저장할 interval ref
+  // const initialTime = useRef(tempHour * 60 * 60 + tempMin * 60);
+  // const interval = useRef(null);
+
+  // const [hour, setHour] = useState(padNumber(tempHour, 2));
+  // const [min, setMin] = useState(padNumber(tempMin, 2));
+
+  // const now = new Date().getTime();
+  // const t = deadline - now;
+
+  // useEffect(() => {
+  //   interval.current = setInterval(() => {
+  //     initialTime.current -= 1;
+
+  //     setMin(padNumber(parseInt(initialTime.current / 60), 2));
+  //     setHour(padNumber(parseInt(initialTime.current / 60 / 60), 2));
+  //   }, 1000);
+  //   return () => clearInterval(interval.current);
+  // }, []);
+
+  // // 초가 변할 때만 실행되는 useEffect
+  // // initialTime을 검사해서 0이 되면 interval을 멈춘다.
+  // useEffect(() => {
+  //   if (initialTime.current <= 0) {
+  //     clearInterval(interval.current);
+  //   }
+  // }, []);
+
   const androidBool = Platform.OS === 'android' ? true : false;
   return (
     <SafeAreaView style={styles.detailSafeViewArea}>
@@ -66,6 +100,10 @@ export default function DetailScreen({route, navigation}) {
               <Text style={styles.detailHeadText}>◦ 일정 이름 : </Text>
             </View>
             <View style={{justifyContent: 'center'}}>
+              {/* <CountdownTimer       
+                endsAt={this.props.date}
+                onUpdate={timer => this.setState({timer: timer})>
+                {`${this.state.timer.hours}:${this.state.timer.minutes}:${this.state.timer.seconds}`}/> */}
               <Text style={styles.detailText}>수빈이랑 밥약</Text>
             </View>
             {/* <View>
@@ -79,6 +117,9 @@ export default function DetailScreen({route, navigation}) {
             </View>
             <View style={{justifyContent: 'center'}}>
               <Text style={styles.detailText}>오프라인</Text>
+              {/* <Text>
+                {hour} : {min}
+              </Text> */}
             </View>
           </View>
 
@@ -180,7 +221,7 @@ export default function DetailScreen({route, navigation}) {
         <TouchableOpacity
           style={styles.bottomButton}
           onPress={() => navigation3()}>
-          <Text>취소</Text>
+          <Text>초대 거절하기</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
